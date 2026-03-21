@@ -1,16 +1,24 @@
+import asyncio
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 
 from edge_sensor_gateway.gateway.service import GatewayService
 
 gateway_service = GatewayService()
-app = FastAPI(title="Edge Sensor Gateway Simulator")
 
 
-@app.on_event("startup")
-async def startup_event() -> None:
-    import asyncio
-    asyncio.create_task(gateway_service.run())
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = asyncio.create_task(gateway_service.run())
+    try:
+        yield
+    finally:
+        task.cancel()
+
+
+app = FastAPI(title="Edge Sensor Gateway Simulator", lifespan=lifespan)
 
 
 @app.get("/")

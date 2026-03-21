@@ -9,7 +9,7 @@ class MqttPublisher:
         self.host = host
         self.port = port
         self.enabled = enabled
-        self.client = mqtt.Client()
+        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.connected = False
 
     def connect(self) -> None:
