@@ -17,3 +17,11 @@ This project simulates an industrial edge gateway that collects data from multip
 - automated tests with pytest
 - Docker support
 - CI/CD with GitHub Actions
+
+## Configuration
+
+Sensor instances are loaded from a YAML configuration file located at:
+
+`configs/sensors.example.yaml`
+
+This allows the gateway to be configured without changing the application code.

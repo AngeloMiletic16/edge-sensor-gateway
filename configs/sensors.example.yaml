@@ -1,0 +1,18 @@
+sensors:
+  - sensor_id: temp-001
+    name: Temperature Sensor 1
+    sensor_type: temperature
+    unit: C
+    interval_seconds: 2.0
+
+  - sensor_id: dist-001
+    name: Distance Sensor 1
+    sensor_type: distance
+    unit: mm
+    interval_seconds: 3.0
+
+  - sensor_id: vib-001
+    name: Vibration Sensor 1
+    sensor_type: vibration
+    unit: g
+    interval_seconds: 4.0
