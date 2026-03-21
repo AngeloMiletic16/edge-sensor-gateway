@@ -20,7 +20,18 @@ class SensorInfo(BaseModel):
     enabled: bool = True
 
 
+class AlarmEvent(BaseModel):
+    alarm_id: str
+    sensor_id: str
+    sensor_type: str
+    severity: str
+    message: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    active: bool = True
+
+
 class HealthStatus(BaseModel):
     status: str
     active_sensors: int
     total_readings: int
+    active_alarms: int
