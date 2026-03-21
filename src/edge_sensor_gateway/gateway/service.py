@@ -2,6 +2,7 @@ import asyncio
 
 from edge_sensor_gateway.alarms.engine import AlarmEngine
 from edge_sensor_gateway.core.models import SensorInfo
+from edge_sensor_gateway.gateway.broadcaster import EventBroadcaster
 from edge_sensor_gateway.sensors.base import BaseSensor
 from edge_sensor_gateway.sensors.distance import DistanceSensor
 from edge_sensor_gateway.sensors.temperature import TemperatureSensor
@@ -13,6 +14,7 @@ class GatewayService:
     def __init__(self) -> None:
         self.storage = InMemoryStorage()
         self.alarm_engine = AlarmEngine()
+        self.broadcaster = EventBroadcaster()
         self.sensors: list[BaseSensor] = self._create_sensors()
 
         self.storage.set_sensors([sensor.info for sensor in self.sensors])
@@ -52,10 +54,12 @@ class GatewayService:
         while True:
             reading = await sensor.read()
             self.storage.save_reading(reading)
+            await self.broadcaster.broadcast_reading(reading)
 
             alarm = self.alarm_engine.evaluate(reading)
             if alarm is not None:
                 self.storage.save_alarm(alarm)
+                await self.broadcaster.broadcast_alarm(alarm)
 
             await asyncio.sleep(sensor.info.interval_seconds)
 
