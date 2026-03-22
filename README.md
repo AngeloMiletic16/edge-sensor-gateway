@@ -11,17 +11,31 @@ A professional, high-performance industrial edge gateway simulator built with Py
 
 ## 📋 Overview
 
-This project simulates a modular industrial edge gateway that collects telemetry from multiple simulated sensors (Temperature, Distance, Vibration), processes readings asynchronously, evaluates alarm conditions based on thresholds, and exposes the data to external systems.
+This project simulates a modular industrial edge gateway responsible for collecting telemetry from multiple simulated sensors such as Temperature, Distance, and Vibration sensors. The system continuously gathers readings, processes them asynchronously, evaluates alarm conditions based on configurable thresholds, and exposes the resulting data to external consumers through REST, WebSocket, and MQTT interfaces.
+
+The project is inspired by real-world industrial and Industry 4.0 scenarios, where software components often sit between sensors, devices, and higher-level applications. In such environments, gateway services must be able to handle concurrent data streams, detect abnormal states, provide real-time visibility, and integrate with multiple communication protocols in a reliable and maintainable way.
+
+The application was intentionally designed as more than a simple demo API. It aims to reflect the structure and responsibilities of a small edge-oriented Python system by combining:
+- asynchronous sensor polling with `asyncio`
+- event broadcasting over WebSocket
+- telemetry publishing over MQTT
+- REST endpoints for system visibility
+- modular package organization
+- configuration-driven behavior through YAML
+- automated quality checks, testing, and CI workflows
+
+From a software engineering perspective, the project demonstrates how Python can be used to build a cleanly structured, extensible, and testable service that resembles the kind of logic commonly found in industrial automation, telemetry pipelines, and embedded-adjacent backend systems.
 
 **Key design goals:**
-*   Demonstrate mastery of **Python Asyncio** for high-concurrency tasks.
-*   Implement industrial communication standards (**MQTT, WebSockets**).
-*   Showcase modern **Clean Architecture** and modular package design.
-*   Ensure reliability through **Automated Testing** and **CI/CD** workflows.
+- demonstrate practical use of **Python Asyncio** for concurrent sensor processing
+- implement common industrial communication interfaces such as **MQTT**, **HTTP**, and **WebSocket**
+- showcase a modular and maintainable architecture with separated responsibilities
+- provide a realistic portfolio example of an edge / industrial Python application
+- ensure reliability through **automated testing**, **linting**, **type checking**, and **CI/CD workflows**
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 ### Live Monitoring Dashboard
 ![Dashboard Screenshot](assets/dashboard.png)
@@ -31,7 +45,7 @@ This project simulates a modular industrial edge gateway that collects telemetry
 
 ---
 
-## 🚀 Features
+##  Features
 
 *   **Multi-Sensor Simulation**: Simulates temperature, distance, and vibration sensors with configurable polling intervals and noise.
 *   **Async Data Collection**: Uses `asyncio` to run multiple sensor loops concurrently without blocking.
@@ -45,7 +59,7 @@ This project simulates a modular industrial edge gateway that collects telemetry
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Category | Technology |
 | :--- | :--- |
@@ -82,8 +96,11 @@ edge-sensor-gateway/
 ├── Dockerfile              # Containerization
 ├── docker-compose.yml      # Full stack orchestration
 └── pyproject.toml          # Build system and dependencies
+```
 
-## ⚙️ Configuration
+##  Configuration
+
+The gateway is highly customizable via YAML files located in the `configs/` directory.
 
 The application loads its behavior from `configs/sensors.example.yaml`. You can define custom sensors and connection parameters here:
 
@@ -105,8 +122,9 @@ sensors:
     sensor_type: vibration
     unit: g
     interval_seconds: 4.0
+```
 
-### 🚀 API & Integration
+###  API & Integration
 **REST Endpoints**
 - `GET /health` — Gateway status & uptime.
 - `GET /sensors` — List active simulated sensors.
@@ -136,33 +154,6 @@ python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 uvicorn src.edge_sensor_gateway.main:app --reload
-
-**Docker Setup**
-
-docker compose up --build
-
-###🧪 Testing & Quality
-pytest        # Run tests
-ruff check .  # Linting
-mypy src      # Type analysis
-
-###📊 Example Output
-
-### Sensor Reading
-{
-    *event_type*: *reading*,
-    *payload*: {
-    *sensor_id*: *temp-**001***,
-    *value*: 28.7,
-    *unit*: *C*,
-    *status*: *ok*
-    }
-}
-
-###🎯 Project Goals
-
-Demonstrating proficiency in:
-
-Industrial IoT — Bridging edge sensors to cloud protocols. Concurrency — High-efficiency I/O using Python asyncio. **API** Design — Clean, documented **REST** and streaming interfaces. Reliability — Strong typing and modern CI/CD standards. 🔮 Roadmap InfluxDB/PostgreSQL persistence React-based dashboard Modbus/**TCP** and **OPC**-UA support ML-based anomaly detection
+```
 
 Developed by Angelo Miletic
