@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    container_name: edge-sensor-gateway-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./configs:/app/configs
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: edge-sensor-gateway-mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./docker/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf

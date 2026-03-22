@@ -1,6 +1,6 @@
 mqtt:
-  enabled: false
-  host: localhost
+  enabled: true
+  host: mosquitto
   port: 1883
 
 sensors:

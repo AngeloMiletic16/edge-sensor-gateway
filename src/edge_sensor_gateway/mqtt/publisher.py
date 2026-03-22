@@ -20,6 +20,7 @@ class MqttPublisher:
             self.client.connect(self.host, self.port, 60)
             self.client.loop_start()
             self.connected = True
+            print(f"[MQTT] Connected to broker at {self.host}:{self.port}")
         except Exception as exc:
             print(f"[MQTT] Connection failed: {exc}")
             self.connected = False
@@ -37,3 +38,4 @@ class MqttPublisher:
         self.client.loop_stop()
         self.client.disconnect()
         self.connected = False
+        print("[MQTT] Disconnected from broker")

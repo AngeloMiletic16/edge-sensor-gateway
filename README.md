@@ -246,6 +246,15 @@ Open the WebSocket event viewer:
 
 `http://127.0.0.1:8000/viewer`
 
+
+## 🐳 Docker Usage
+
+Run the full application stack with Docker Compose:
+
+```bash 
+docker compose up --build
+
+
 📊 Example Output
 -----------------
 
