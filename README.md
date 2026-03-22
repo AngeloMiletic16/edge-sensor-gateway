@@ -1,360 +1,168 @@
-Edge Sensor Gateway Simulator
-=============================
+# 🚀 Edge Sensor Gateway Simulator
 
-A Python-based industrial edge gateway simulator for asynchronous sensor data collection, alarm detection, and communication over REST, WebSocket, and MQTT.
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI Pipeline](https://github.com/AngeloMiletic16/edge-sensor-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/AngeloMiletic16/edge-sensor-gateway/actions)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 
-📋 Overview
------------
+A professional, high-performance industrial edge gateway simulator built with Python. This project simulates asynchronous sensor data collection, real-time alarm detection, and multi-protocol communication (REST, WebSocket, and MQTT).
 
-This project simulates a small industrial edge gateway that collects telemetry from multiple sensors, processes readings asynchronously, evaluates alarm conditions, and exposes data to external systems.
+---
 
-It was designed as a portfolio project for Python roles related to:
+## 📋 Overview
 
-*   embedded and edge-style systems
-*   industrial automation software
-*   asynchronous programming with `asyncio`
-*   communication protocols such as HTTP, WebSocket, and MQTT
-*   modular Python package design
-*   automated testing and CI/CD workflows
+This project simulates a modular industrial edge gateway that collects telemetry from multiple simulated sensors (Temperature, Distance, Vibration), processes readings asynchronously, evaluates alarm conditions based on thresholds, and exposes the data to external systems.
 
-🚀 Features
------------
+**Key design goals:**
+*   Demonstrate mastery of **Python Asyncio** for high-concurrency tasks.
+*   Implement industrial communication standards (**MQTT, WebSockets**).
+*   Showcase modern **Clean Architecture** and modular package design.
+*   Ensure reliability through **Automated Testing** and **CI/CD** workflows.
 
-*   **Multi-Sensor Simulation**  
-    Simulates temperature, distance, and vibration sensors with configurable polling intervals.
-*   **Async Data Collection**  
-    Uses Python `asyncio` to run multiple sensor loops concurrently.
-*   **Alarm Detection**  
-    Generates alarms when sensor readings exceed defined thresholds.
-*   **REST API**  
-    Exposes current system state through FastAPI endpoints.
-*   **WebSocket Live Stream**  
-    Broadcasts sensor readings and alarm events in real time.
-*   **MQTT Publishing**  
-    Publishes sensor telemetry, alarm events, and gateway health information to MQTT topics.
-*   **YAML Configuration**  
-    Loads sensor and MQTT settings from a configuration file.
-*   **Automated Testing**  
-    Includes initial unit and API tests with `pytest`.
-*   **CI Pipeline**  
-    Supports linting, type checking, and automated tests through GitHub Actions.
+---
 
-🛠️ Tech Stack
---------------
+## 📸 Screenshots
 
-*   **Python 3.11+**
-*   **FastAPI**
-*   **asyncio**
-*   **Pydantic**
-*   **PyYAML**
-*   **paho-mqtt**
-*   **pytest**
-*   **Ruff**
-*   **MyPy**
-*   **GitHub Actions**
+### Live Monitoring Dashboard
+![Dashboard Screenshot](assets/dashboard.png)
 
-📂 Project Structure
---------------------
+### API Documentation (Swagger UI)
+![API Docs Screenshot](assets/api-docs.png)
 
-edge-sensor-gateway/  
-├── .github/  
-│   └── workflows/  
-│       └── ci.yml  
-├── configs/  
-│   └── sensors.example.yaml  
-├── docs/  
-│   ├── architecture.md  
-│   └── test\_plan.md  
-├── src/  
-│   └── edge\_sensor\_gateway/  
-│       ├── alarms/  
-│       ├── api/  
-│       ├── core/  
-│       ├── gateway/  
-│       ├── mqtt/  
-│       ├── sensors/  
-│       ├── storage/  
-│       ├── utils/  
-│       ├── config.py  
-│       └── main.py  
-├── tests/  
-│   ├── test\_alarm\_engine.py  
-│   ├── test\_api.py  
-│   └── test\_config.py  
-├── .gitignore  
-├── pyproject.toml  
-└── README.md
+---
 
-⚙️ Configuration
-----------------
+## 🚀 Features
 
-The application loads configuration from:
+*   **Multi-Sensor Simulation**: Simulates temperature, distance, and vibration sensors with configurable polling intervals and noise.
+*   **Async Data Collection**: Uses `asyncio` to run multiple sensor loops concurrently without blocking.
+*   **Real-time Alarm Engine**: Evaluates readings instantly and generates alarm events when thresholds are exceeded.
+*   **Triple-Stream Communication**:
+    *   **REST API**: FastAPI endpoints for system state, health, and history.
+    *   **WebSocket Stream**: Live broadcast of sensor readings and alarms to connected clients.
+    *   **MQTT Publishing**: Integration with industrial brokers for telemetry and gateway health.
+*   **YAML Configuration**: Flexible sensor and MQTT settings management via configuration files.
+*   **Quality Driven**: Built with strict type checking (MyPy), linting (Ruff), and unit testing (Pytest).
 
-`configs/sensors.example.yaml`
+---
 
-### Example configuration
+## 🛠️ Tech Stack
 
-mqtt:  
-  enabled: false  
-  host: localhost  
-  port: 1883  
-  
-sensors:  
-  - sensor\_id: temp-001  
-    name: Temperature Sensor 1  
-    sensor\_type: temperature  
-    unit: C  
-    interval\_seconds: 2.0  
-  
-  - sensor\_id: dist-001  
-    name: Distance Sensor 1  
-    sensor\_type: distance  
-    unit: mm  
-    interval\_seconds: 3.0  
-  
-  - sensor\_id: vib-001  
-    name: Vibration Sensor 1  
-    sensor\_type: vibration  
-    unit: g  
-    interval\_seconds: 4.0
+| Category | Technology |
+| :--- | :--- |
+| **Language** | Python 3.11+ |
+| **Framework** | FastAPI (ASGI) |
+| **Concurrency** | Asyncio |
+| **Data Handling** | Pydantic, PyYAML |
+| **Messaging** | Paho-MQTT, WebSockets |
+| **Testing** | Pytest |
+| **Tooling** | Ruff (Linter), MyPy (Types), Docker, GitHub Actions |
 
-📡 API Endpoints
-----------------
+---
 
-The project currently exposes the following endpoints:
+## 📂 Project Structure
 
-*   `GET /` — basic service information
-*   `GET /health` — gateway health status
-*   `GET /sensors` — configured sensors
-*   `GET /readings/latest` — latest readings from all sensors
-*   `GET /alarms` — collected alarm events
-*   `GET /viewer` — simple browser-based WebSocket event viewer
-*   `WS /ws/readings` — live event stream for readings and alarms
+```text
+edge-sensor-gateway/
+├── .github/workflows/      # GitHub Actions CI configurations
+├── assets/                 # Screenshots and media
+├── configs/                # YAML configuration templates
+├── docker/                 # Infrastructure configs (e.g., Mosquitto)
+├── docs/                   # Extended documentation (Architecture, Test Plans)
+├── src/
+│   └── edge_sensor_gateway/
+│       ├── alarms/         # Alarm detection logic
+│       ├── api/            # FastAPI routes & WebSocket handlers
+│       ├── core/           # Interfaces and shared models
+│       ├── gateway/        # Central orchestration service
+│       ├── mqtt/           # MQTT publisher logic
+│       ├── sensors/        # Async sensor simulators
+│       ├── storage/        # Thread-safe in-memory state
+│       └── main.py         # Application entry point
+├── tests/                  # Pytest suite
+├── Dockerfile              # Containerization
+├── docker-compose.yml      # Full stack orchestration
+└── pyproject.toml          # Build system and dependencies
 
-🧠 Architecture
----------------
+## ⚙️ Configuration
 
-The system is organized into several logical layers:
+The application loads its behavior from `configs/sensors.example.yaml`. You can define custom sensors and connection parameters here:
 
-### 1\. Sensors
+```yaml
+mqtt:
+  enabled: true
+  host: localhost
+  port: 1883
 
-Sensor classes simulate industrial devices and generate readings asynchronously.
+sensors:
+  - sensor_id: temp-001
+    name: Temperature Sensor 1
+    sensor_type: temperature
+    unit: C
+    interval_seconds: 2.0
 
-Implemented sensor types:
+  - sensor_id: vib-001
+    name: Vibration Sensor 1
+    sensor_type: vibration
+    unit: g
+    interval_seconds: 4.0
 
-*   `temperature`
-*   `distance`
-*   `vibration`
+### 🚀 API & Integration
+**REST Endpoints**
+- `GET /health` — Gateway status & uptime.
+- `GET /sensors` — List active simulated sensors.
+- `GET /readings/latest` — Latest data from all sensors.
+- `GET /alarms` — History of triggered events.
+- `GET /viewer` — Browser-based WebSocket visualizer.
 
-### 2\. Gateway Service
+**Real-time Streams**
+- **WebSocket**: `WS /ws/readings` — Live JSON stream of readings/alarms.
+- **MQTT Topics**: `gateway/telemetry` (Readings), `gateway/alarms` (Events), `gateway/health` (Heartbeat).
 
-The gateway service is the orchestration layer. It:
+### 🔄 Data Flow
+1. **Ingestion**: Async tasks generate telemetry via YAML config.
+2. **Storage**: In-memory state management.
+3. **Processing**: Alarm Engine validates safety bounds.
+4. **Broadcasting**: Data pushed to WebSockets & MQTT.
+5. **Consumption**: External apps consume data via REST/Streams.
 
-*   loads configuration
-*   creates sensor instances
-*   starts concurrent async sensor tasks
-*   stores new readings
-*   evaluates alarm conditions
-*   broadcasts events to WebSocket clients
-*   publishes data to MQTT when enabled
+### 🛠️ Setup & Usage
+**Prerequisites:** Python 3.11+ | [Optional] MQTT Broker
 
-### 3\. Storage
-
-An in-memory storage layer keeps:
-
-*   configured sensors
-*   latest sensor readings
-*   collected alarms
-*   health counters
-
-### 4\. Alarm Engine
-
-The alarm engine evaluates sensor readings and creates alarm events when rules are triggered.
-
-### 5\. API Layer
-
-FastAPI provides:
-
-*   REST endpoints for current state
-*   WebSocket endpoint for live event streaming
-*   simple HTML page for manual WebSocket testing
-
-### 6\. MQTT Layer
-
-The MQTT publisher is responsible for publishing:
-
-*   sensor readings
-*   alarm events
-*   gateway health data
-
-🔄 Data Flow
-------------
-
-1.  Sensor and MQTT configuration is loaded from YAML.
-2.  Sensor instances are created through a factory.
-3.  Each sensor runs in its own async loop.
-4.  New readings are stored in memory.
-5.  Readings are broadcast through WebSocket.
-6.  Readings are optionally published to MQTT.
-7.  Alarm rules are evaluated.
-8.  Generated alarms are stored, broadcast, and optionally published to MQTT.
-
-🛠️ Installation
-----------------
-
-### Prerequisites
-
-*   Python 3.11 or higher
-*   `pip`
-*   optional: an MQTT broker such as Mosquitto if MQTT publishing is enabled
-
-### Setup
-
-Clone the repository:
-
-git clone https://github.com/AngeloMiletic16/edge-sensor-gateway.git  
+**Local Setup:**
+```bash
+git clone https://github.com/AngeloMiletic16/edge-sensor-gateway.git
 cd edge-sensor-gateway
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+uvicorn src.edge_sensor_gateway.main:app --reload
 
-Create and activate a virtual environment:
+**Docker Setup**
 
-python \-m venv .venv
-
-On Windows PowerShell:
-
-.venv\\Scripts\\Activate.ps1
-
-Install the project:
-
-pip install \-e .
-
-Install development tools:
-
-pip install \-e ".\[dev\]"
-
-▶️ Usage
---------
-
-Run the application locally:
-
-uvicorn edge\_sensor\_gateway.main:app \--reload
-
-Open the API docs:
-
-`http://127.0.0.1:8000/docs`
-
-Open the WebSocket event viewer:
-
-`http://127.0.0.1:8000/viewer`
-
-
-## 🐳 Docker Usage
-
-Run the full application stack with Docker Compose:
-
-```bash 
 docker compose up --build
 
+###🧪 Testing & Quality
+pytest        # Run tests
+ruff check .  # Linting
+mypy src      # Type analysis
 
-📊 Example Output
------------------
+###📊 Example Output
 
-### Sensor reading event
-
-{  
-  "event\_type": "reading",  
-  "payload": {  
-    "sensor\_id": "temp-001",  
-    "sensor\_type": "temperature",  
-    "timestamp": "2026-03-21T10:15:30.123Z",  
-    "value": 28.7,  
-    "unit": "C",  
-    "status": "ok"  
-  }  
+### Sensor Reading
+{
+    *event_type*: *reading*,
+    *payload*: {
+    *sensor_id*: *temp-**001***,
+    *value*: 28.7,
+    *unit*: *C*,
+    *status*: *ok*
+    }
 }
 
-### Alarm event
+###🎯 Project Goals
 
-{  
-  "event\_type": "alarm",  
-  "payload": {  
-    "alarm\_id": "6f4df8e3-0c5d-4c12-98f0-64a9bb9d6a11",  
-    "sensor\_id": "temp-001",  
-    "sensor\_type": "temperature",  
-    "severity": "warning",  
-    "message": "High temperature detected: 28.7 C",  
-    "timestamp": "2026-03-21T10:15:30.456Z",  
-    "active": true  
-  }  
-}
+Demonstrating proficiency in:
 
-🧪 Testing
-----------
+Industrial IoT — Bridging edge sensors to cloud protocols. Concurrency — High-efficiency I/O using Python asyncio. **API** Design — Clean, documented **REST** and streaming interfaces. Reliability — Strong typing and modern CI/CD standards. 🔮 Roadmap InfluxDB/PostgreSQL persistence React-based dashboard Modbus/**TCP** and **OPC**-UA support ML-based anomaly detection
 
-Run all tests:
-
-pytest
-
-Run linting:
-
-ruff check .
-
-Run type checking:
-
-mypy src
-
-✅ Current Status
-----------------
-
-Implemented:
-
-*   multiple simulated sensors
-*   asynchronous gateway service
-*   alarm engine
-*   REST API
-*   WebSocket broadcasting
-*   YAML configuration
-*   MQTT publishing foundation
-*   automated tests
-*   GitHub Actions CI setup
-
-🔧 CI / Quality Checks
-----------------------
-
-The GitHub Actions pipeline is configured to run:
-
-*   Ruff linting
-*   MyPy type checking
-*   `pytest` test suite
-
-This helps keep the project consistent and maintainable.
-
-📚 Documentation
-----------------
-
-Additional project documentation:
-
-*   `docs/architecture.md`
-*   `docs/test_plan.md`
-
-🎯 Why This Project
--------------------
-
-This project was built to demonstrate practical skills relevant to Python positions involving:
-
-*   industrial automation
-*   sensor data processing
-*   edge / embedded-adjacent development
-*   async programming
-*   testing and documentation
-*   communication protocols used in real systems
-
-🔮 Future Improvements
-----------------------
-
-*   Docker setup with integrated MQTT broker
-*   richer alarm rules and severity levels
-*   persistent storage
-*   dashboard UI for live monitoring
-*   broader integration test coverage
-*   sensor plugin extensibility
-*   health and metrics improvements
+Developed by Angelo Miletic
