@@ -267,7 +267,9 @@ async def dashboard():
                 sensorList.innerHTML = "";
                 sensors.forEach(sensor => {
                     const li = document.createElement("li");
-                    li.textContent = `${sensor.sensor_id} — ${sensor.sensor_type} (${sensor.interval_seconds}s)`;
+                    li.textContent =
+                        `${sensor.sensor_id} — ${sensor.sensor_type} ` +
+                        `(${sensor.interval_seconds}s)`;
                     sensorList.appendChild(li);
                 });
             }
@@ -299,7 +301,9 @@ async def dashboard():
 
                 alarms.slice(-10).reverse().forEach(alarm => {
                     const li = document.createElement("li");
-                    li.innerHTML = `<span class="badge alarm-badge">${alarm.severity}</span> ${alarm.sensor_id} — ${alarm.message}`;
+                    li.innerHTML =
+                        `<span class="badge alarm-badge">${alarm.severity}</span> ` +
+                        `${alarm.sensor_id} — ${alarm.message}`;
                     alarmList.appendChild(li);
                 });
             }
